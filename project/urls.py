@@ -11,6 +11,7 @@ urlpatterns = [
 
     url(r'^$', include('homepage.urls')),
     url(r'^health$', health),
+    url(r'^admin-panel$', include('adminapps.urls', namespace="admin-panel", app_name='admin-panel')),
     url(r'^admin/', include(admin.site.urls)),
 ]
 

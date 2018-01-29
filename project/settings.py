@@ -16,6 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIRNAME = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) #project2
 TEMPLATE_DIR = os.path.join(DIRNAME, "templates")
+STATIC_DIR = os.path.join(DIRNAME, "static")
 
 
 # Quick-start development settings - unsuitable for production
@@ -46,6 +47,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'welcome',
     'homepage',
+    'adminapps',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,6 +112,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [
+    STATIC_DIR
+]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
