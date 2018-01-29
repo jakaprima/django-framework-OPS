@@ -1,0 +1,20 @@
+{% extends 'adminapps/base.html' %}
+{% block kontenblock %}
+	Tambah Post Baru
+
+
+	<form method="GET" action="{% url 'admin-panel:url-tambahpost' %}" class="pure-form">
+		{% for field in form %}
+			<div class="form-group">
+
+			</div>
+			<fieldset class="pure-group">
+				{{ field }}
+			</fieldset>
+		{%  endfor %}
+
+	    <button type="submit" class="pure-button pure-input-1-2 pure-button-primary">create</button>
+	    {% csrf_token %}
+	</form>
+	
+{% endblock %}
