@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import socket
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 print(BASE_DIR)
@@ -25,16 +26,29 @@ STATIC_DIR = os.path.join(DIRNAME, "static")
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv(
-                       'DJANGO_SECRET_KEY',
-                       # safe value used for development when DJANGO_SECRET_KEY might not be set
-                       '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
-                       )
+
+ON_PAAS = 'OPENSHIFT_REPO_DIR' in os.environ 
+
+if ON_PAAS:
+    SECRET_KEY = os.environ['OPENSHIFT_SECRET_TOKEN']
+else:
+    SECRET_KEY = os.getenv(
+                           'DJANGO_SECRET_KEY',
+                           # safe value used for development when DJANGO_SECRET_KEY might not be set
+                           '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
+                           )
+
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = not ON_PAAS
+DEBUG = DEBUG or 'DEBUG' in os.environ
 
-ALLOWED_HOSTS = ['*']
+if ON_PAAS:
+    ALLOWED_HOSTS = [os.environ['OPENSHIFT_APP_DNS'], socket.gethostname()]
+else:
+    ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -110,14 +124,20 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
+# https://docs.djangoproject.com/en/1.6/howto/static-files/
 STATIC_URL = '/static/'
-# STATIC_ROOT = STATIC_DIR
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [
-#     STATIC_DIR
-# ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'wsgi', 'static')
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)
+
+STATICFILES_DIRS = (
+    # Put strings here, like "/home/html/static" or "C:/www/django/static".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    os.path.join(BASE_DIR, "static"),
+)
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
