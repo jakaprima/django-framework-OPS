@@ -12,3 +12,16 @@ class FormLogin(forms.Form):
 			'class' : 'form-widget',
 			'autocomplete' : 'off'
 		})
+
+class FormCreatePost(forms.Form):
+	judul_artikel = forms.CharField()
+	isi_artikel = forms.CharField()
+	def __init__(self, *args, **kwargs):
+		super(FormCreatePost, self).__init__(*args, **kwargs)
+		self.fields['judul_artikel'].widget.attrs.update({
+				'class': 'form-widget', 'placeholder': 'Masukkan Judul Artikel'
+		})
+		self.fields['isi_artikel'].widget.attrs.update({
+			'class': 'form-widget', 'placeholder': 'Masukkan Isi Artikel'
+	})
+	

@@ -9,7 +9,7 @@ urlpatterns = [
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^$', include('homepage.urls')),
+    url(r'^', include('homepage.urls', namespace='homepage', app_name='homepage')),
     url(r'^admin-panel/', include('adminapps.urls', namespace="admin-panel", app_name='admin-panel')),
     url(r'^health$', health),
     url(r'^admin/', include(admin.site.urls)),

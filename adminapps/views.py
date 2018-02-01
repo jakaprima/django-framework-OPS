@@ -3,9 +3,12 @@ from django.views.generic import TemplateView, View
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, logout
 # from django.views.generic.edit import FormView
-from .forms import FormLogin
+from .forms import FormLogin, FormCreatePost
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+
+from homepage.models import Artikel, Kategori, Komentar
+from django.db.models import Count
 
 # Create your views here.
 
@@ -57,13 +60,50 @@ class LogoutView(View):
 
 class ArtikelList(TemplateView):
 	template_name = 'adminapps/adm_dashboard/semuapost.html'
-	"""docstring for ArtikelList"""
-	# def __init__(self, arg):
-	# 	super(ArtikelList, self).__init__()
-	# 	self.arg = arg
+	def get_context_data(self, **kwargs):
+	    context = super(ArtikelList, self).get_context_data(**kwargs)
+	    queryset = Artikel.objects.select_related().annotate(komentar_count=Count('komentar'))
+
+	    # print queryset[0].komentar_count
+	    # print queryset.query
+	    # "homepage_artikel"."id",
+	    # "homepage_artikel"."penulis_id",
+	    # "homepage_artikel"."judul_artikel",
+	    # "homepage_artikel"."kategori_artikel_id",
+	    # "homepage_artikel"."isi_artikel",
+	    # COUNT("homepage_komentar"."id") AS "komentar_count" FROM "homepage_artikel" LEFT OUTER JOIN "homepage_komentar" ON ( "homepage_artikel"."id" = "homepage_komentar"."artikel_id" ) GROUP BY "homepage_artikel"."id", "homepage_artikel"."penulis_id", "homepage_artikel"."judul_artikel", "homepage_artikel"."kategori_artikel_id", "homepage_artikel"."isi_artikel"
+
+	    context = {
+	    	'data_artikel': queryset,
+	    }
+	    return context
 
 class TambahPostView(TemplateView):
-	template_name = 'adminapps/adm_dashboard/tambahpost.html'	
+	template_name = 'adminapps/adm_dashboard/tambahpost.html'
+
+	# def get_context_data(self, **kwargs):
+	#     context = super(TambahPostView, self).get_context_data(**kwargs)
+	#     context['data_artikel'] = Artikel.objects.all()
+	#     return context
+
+	def dispatch(self, request, *args, **kwargs):
+	    self.context = super(TambahPostView, self).get_context_data(**kwargs)
+	    return super(TambahPostView, self).dispatch(request, *args, **kwargs)
+	def get(self, request, *args, **kwargs):
+		form = FormCreatePost()
+		self.context['form'] = form
+		# data_artikel = Artikel.objects.all()
+		return super(TambahPostView, self).render_to_response(self.context)
+	def post(self, request, *args, **kwargs):
+		# print request.user
+		form = FormCreatePost(request.POST)
+		if form.is_valid():
+			instance = Artikel(penulis=request.user, judul_artikel=request.POST.get('judul_artikel'), isi_artikel=request.POST.get('isi_artikel'))
+			instance.save()
+			return redirect('/admin-panel/posts/')
+
+
+
 
 # class DashboardView(BaseAuthenticatedView):
 	# template_name = 'adminapps/adm_dashboard/index.html'

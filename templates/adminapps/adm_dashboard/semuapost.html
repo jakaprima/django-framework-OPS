@@ -1,4 +1,56 @@
 {% extends 'adminapps/base.html' %}
 {% block kontenblock %}
-test semua post
+POSTINGAN <a href="#"><button class="pure-button pure-button-primary">Tambah Baru</button></a>
+<br>
+<br>
+<table class="pure-table">
+    <thead>
+        <tr>
+            <th>No</th>
+            <th>judul</th>
+            <th>Penulis</th>
+            <th>Kategori</th>
+            <th>tags</th>
+            <th>Komentar</th>
+            <th>Tanggal</th>
+            <th>Waktu</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for artikel in data_artikel %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ artikel.judul_artikel }}</td>
+            <td>{{ artikel.penulis }}</td>
+            <td>
+            {% if artikel.kategori_artikel == None %}
+                -
+            {% else %}
+                {{ artikel.kategori_artikel }}
+            {% endif %}
+            </td>
+            <td>
+                tag
+            </td>
+            <td>{{ artikel.komentar_count }}</td>
+            <td>{{ artikel.created_at|date:"d M Y" }}</td>
+            <td>{{ artikel.created_at|date:'H:i' }}</td>
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% for post in data_postlist %}
+
+{{post.artikel_id}}
+{{post.penulis_id}}
+{{post.komentar_id}}
+{{post.komentar_id.count}}</br>
+
+{% endfor %}
+
+
 {% endblock %}
+

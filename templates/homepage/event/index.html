@@ -1,0 +1,105 @@
+<body>
+	<div class="modal-background">
+		<div class="modal-dialog">
+			<div class="modal-body">
+				<form class="pure-form pure-form-aligned">
+				    <fieldset>
+				        <div class="pure-control-group">
+				            <label for="name">Username</label>
+				            <input id="name" type="text" placeholder="Username">
+				            <span class="pure-form-message-inline">This is a required field.</span>
+				        </div>
+
+				        <div class="pure-control-group">
+				            <label for="password">Password</label>
+				            <input id="password" type="password" placeholder="Password">
+				        </div>
+
+				        <div class="pure-control-group">
+				            <label for="email">Email Address</label>
+				            <input id="email" type="email" placeholder="Email Address">
+				        </div>
+
+				        <div class="pure-control-group">
+				            <label for="foo">Supercalifragilistic Label</label>
+				            <input id="foo" type="text" placeholder="Enter something here...">
+				        </div>
+
+				        <div class="pure-controls">
+				            <label for="cb" class="pure-checkbox">
+				                <input id="cb" type="checkbox"> I've read the terms and conditions
+				            </label>
+
+				            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+				        </div>
+				    </fieldset>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<div id="layout" class="pure-g">
+	    <div class="sidebar pure-u-1 pure-u-md-1-4">
+	        <div class="header">
+	            <h1 class="brand-title">{{ data_setting_web.nama_web }}</h1>
+	            <h2 class="brand-tagline">{{ data_setting_web.deskripsi_web }}</h2>
+
+	            <nav class="nav">
+	                <ul class="nav-list">
+	                    <li class="nav-item">
+	                        <a id="btn-daftar" class="pure-button" href="javascript:void(0)">Daftar</a>
+	                    </li>
+	                    <li class="nav-item">
+	                        <a class="pure-button" href="{% url 'admin-panel:url-adm-dashboard' %}">Login</a>
+	                    </li>
+	                </ul>
+	            </nav>
+	        </div>
+	    </div>
+
+	    <div class="content pure-u-1 pure-u-md-3-4">
+	        <div>
+	            <!-- A wrapper for all the blog posts -->
+	            {% for artikel in data_artikel %}
+	            <div class="posts">
+	                <h1 class="content-subhead">Pinned Post</h1>
+
+	                <!-- A single blog post -->
+	                <section class="post">
+	                    <header class="post-header">
+	                        <img width="48" height="48" alt="Tilo Mitra&#x27;s avatar" class="post-avatar" src="img/common/tilo-avatar.png">
+
+	                        <h2 class="post-title">
+	                        	<a href="{% url 'homepage:url-detailartikel' artikel.judul_artikel|slugify %}">
+	                        		{{artikel.judul_artikel}}
+	                        	</a>
+	                    	</h2>
+
+	                        <p class="post-meta">
+	                            Oleh <a href="#" class="post-author">{{artikel.penulis}}</a> Dengan <a class="post-category post-category-design" href="#">{{artikel.kategori_artikel}}</a>
+	                        </p>
+	                    </header>
+
+	                    <div class="post-description">
+	                        <p>
+	                        	{{ artikel.isi_artikel}}
+	                        </p>
+	                    </div>
+	                </section>
+	            </div>
+	            {% endfor %}
+
+	            <div class="footer">
+	                <div class="pure-menu pure-menu-horizontal">
+	                    <ul>
+	                        <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">About</a></li>
+	                        <li class="pure-menu-item"><a href="http://twitter.com/yuilibrary/" class="pure-menu-link">Twitter</a></li>
+	                        <li class="pure-menu-item"><a href="http://github.com/yahoo/pure/" class="pure-menu-link">GitHub</a>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</body>

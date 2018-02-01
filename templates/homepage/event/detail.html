@@ -1,0 +1,36 @@
+<body>
+	<div class="pure-g" style='background-color:grey;'>
+		<div class="pure-u-4-5" style='background-color:red'>
+			<h1>{{ data_artikel.judul_artikel }}</h1>
+			
+			{{ data_artikel.penulis }}
+			
+			{{ data_artikel.created_at| date:'d M Y' }}
+			
+			{{ data_komentar.count }} Komentar		                                      
+			{{ data_artikel.isi_artikel|safe }}
+		</div>
+		<div class="pure-u-1-5" style='background-color:yellow;height:500px'>
+			<aside>
+			sidebar
+			</aside>
+		</div>	
+		
+
+	</div>	
+	<div class="pure-g" style='background-color:pink;'>
+		<div class="pure-u-1-3" style='background-color:#00ffd0;'>
+			{% for komentar in data_komentar %}
+				{{ komentar.penulis_komentar }}
+				{{ komentar.isi_komentar }}
+				{{ komentar.created_at }}
+			{% endfor %}
+		</div>
+	</div>
+	<div class="pure-g" style='background-color:pink;'>
+		<div class="pure-u-1-3" style='background-color:yellow;'>
+			komentar form
+		</div>
+	</div>
+
+</body>
