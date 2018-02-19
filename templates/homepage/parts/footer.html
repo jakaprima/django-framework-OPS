@@ -14,8 +14,15 @@
 <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
 <script>
 	$( document ).ready(function() {
-	    $('.artikel img').appendTo('.artikelgambar')
-	    $('.artikelgambar img').css({'max-width': '90%', 'height': 'auto', 'margin-left': '5%'})
+	    $('.artikel img').appendTo('.artikelgambar');
+	    $('.artikelgambar img').css({'max-width': '90%', 'height': 'auto', 'margin-left': '5%'});
+	    $(window).scroll(function () {
+	        if ($(this).scrollTop() > 90) {
+	            $('.header-section').addClass("header-terbang");
+	        } else {
+	            $('.header-section').removeClass("header-terbang");
+	        }
+	    });
 	});
 
 </script>
