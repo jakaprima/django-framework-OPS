@@ -98,7 +98,7 @@ class TambahPostView(TemplateView):
 		# data_artikel = Artikel.objects.all()
 		return super(TambahPostView, self).render_to_response(self.context)
 	def post(self, request, *args, **kwargs):
-		print request.POST
+		# print request.POST
 		list_kategori_input = request.POST.getlist('kategori_input')
 		# print list_kategori_input[1]
 		artikel_baru = Artikel(
