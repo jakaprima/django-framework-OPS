@@ -19,8 +19,6 @@ def kirim_email_aktivasi(data_email):
         "https://api.mailgun.net/v3/sandboxcb7f24d03e004cd2878d280f2cfa5a55.mailgun.org/messages",
         auth=("api", "key-88fb3541b7b81461c15199fec9aa023e"),
         data=data_email)
-def test():
-	print 'halo ini test'
 
 class Index(TemplateView):
 	template_name = 'homepage/index.html'
@@ -95,9 +93,7 @@ class Detail(TemplateView):
 
 	def post(self, request, artikelslug, *args, **kwargs):
 		a = artikelslug.replace('-', ' ')
-		print a
 		queryset_artikel = get_object_or_404(Artikel, judul_artikel=a)
-		print queryset_artikel
 
 		form = KomentarForm(request.POST)
 		if form.is_valid():
