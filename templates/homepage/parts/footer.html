@@ -1,9 +1,22 @@
 {% block footer  %}
+{% load staticfiles %}
 <footer>
 	<div class="pure-g">
-		Footer
+		<div class="pure-u-1" style="text-align:center;font-size: 11px;
+    padding: 12px;
+    color: #F9F9F9;
+    background: #232627;">
+		© Primasaja.com : PRIme Management Software Architecture with JAka 2014 . Powered by Design Template Primasaja and BD Black Design Primasaja.com
+		</div>
 	</div>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+<script>
+	$( document ).ready(function() {
+	    $('.artikel img').appendTo('.artikelgambar')
+	    $('.artikelgambar img').css({'max-width': '90%', 'height': 'auto', 'margin-left': '5%'})
+	});
+
+</script>
 {% endblock %}

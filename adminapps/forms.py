@@ -1,4 +1,5 @@
 from django import forms
+from tinymce.widgets import TinyMCE
 
 class FormLogin(forms.Form):
 	username = forms.CharField()
@@ -15,13 +16,10 @@ class FormLogin(forms.Form):
 
 class FormCreatePost(forms.Form):
 	judul_artikel = forms.CharField()
-	isi_artikel = forms.CharField()
+	isi_artikel = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
 	def __init__(self, *args, **kwargs):
 		super(FormCreatePost, self).__init__(*args, **kwargs)
 		self.fields['judul_artikel'].widget.attrs.update({
-				'class': 'form-widget', 'placeholder': 'Masukkan Judul Artikel'
+				'style': 'margin-bottom:20px;', 'class': 'form-widget pure-u-1-2', 'placeholder': 'Masukkan Judul Artikel'
 		})
-		self.fields['isi_artikel'].widget.attrs.update({
-			'class': 'form-widget', 'placeholder': 'Masukkan Isi Artikel'
-	})
 	

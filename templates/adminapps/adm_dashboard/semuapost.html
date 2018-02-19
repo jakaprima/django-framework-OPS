@@ -1,5 +1,13 @@
 {% extends 'adminapps/base.html' %}
-{% block kontenblock %}
+{% block konten %}
+<style type="text/css" media="screen">
+.judul-artikel-cls:hover .panel-menu{
+    display: inline;
+}    
+.panel-menu{
+    display: none;
+}
+</style>>
 POSTINGAN <a href="#"><button class="pure-button pure-button-primary">Tambah Baru</button></a>
 <br>
 <br>
@@ -21,7 +29,16 @@ POSTINGAN <a href="#"><button class="pure-button pure-button-primary">Tambah Bar
         {% for artikel in data_artikel %}
         <tr>
             <td>{{ forloop.counter }}</td>
-            <td>{{ artikel.judul_artikel }}</td>
+            <td class="judul-artikel-cls">
+                {{ artikel.judul_artikel }}
+                <br/>
+                <div class="panel-menu">
+                    <a href="#">Edit</a> | 
+                    <a href="#">Quick Edit</a> | 
+                    <a href="#">Trash</a> |
+                    <a href="#">Preview</a>
+                </div>
+            </td>
             <td>{{ artikel.penulis }}</td>
             <td>
             {% if artikel.kategori_artikel == None %}
@@ -50,7 +67,8 @@ POSTINGAN <a href="#"><button class="pure-button pure-button-primary">Tambah Bar
 {{post.komentar_id.count}}</br>
 
 {% endfor %}
-
-
+{% endblock %}
+{% block footer %}
+  {% include 'adminapps/parts/footer.html' %}
 {% endblock %}
 

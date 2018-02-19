@@ -4,6 +4,8 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.db.models import Count
+from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class SettingWeb(models.Model):
@@ -41,9 +43,9 @@ def pre_save_post_receiver(sender, instance, *args, **kwargs):
 class Artikel(models.Model):
 	penulis = models.ForeignKey(User, null=True, blank=True)
 	judul_artikel = models.CharField(max_length=200)
-	kategori_artikel = models.ForeignKey(Kategori, null=True, blank=True, related_name='kategori_related') #biar bisa di pake di template
+	kategori_artikel = models.ManyToManyField(Kategori, null=True, blank=True, related_name='kategori_related') #biar bisa di pake di template
 	# komentar_artikel = models.ManyToManyField('Komentar', blank=True, null=True, through='Postlist')
-	isi_artikel = models.TextField()
+	isi_artikel = HTMLField()
 	created_at = models.DateTimeField(default=timezone.now)
 	updated_at = models.DateTimeField(blank=True, null=True)
 

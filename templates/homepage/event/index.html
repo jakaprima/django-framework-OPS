@@ -2,34 +2,19 @@
 	<div class="modal-background">
 		<div class="modal-dialog">
 			<div class="modal-body">
-				<form class="pure-form pure-form-aligned">
+				<form class="pure-form pure-form-aligned" method="post">{% csrf_token %}
 				    <fieldset>
-				        <div class="pure-control-group">
-				            <label for="name">Username</label>
-				            <input id="name" type="text" placeholder="Username">
-				            <span class="pure-form-message-inline">This is a required field.</span>
-				        </div>
-
-				        <div class="pure-control-group">
-				            <label for="password">Password</label>
-				            <input id="password" type="password" placeholder="Password">
-				        </div>
-
-				        <div class="pure-control-group">
-				            <label for="email">Email Address</label>
-				            <input id="email" type="email" placeholder="Email Address">
-				        </div>
-
-				        <div class="pure-control-group">
-				            <label for="foo">Supercalifragilistic Label</label>
-				            <input id="foo" type="text" placeholder="Enter something here...">
-				        </div>
-
+				    	{% for field in daftar_form %}
+					    	<div class="pure-control-group">
+					    	    <label for="name">{{ field.label }}</label>
+					    	    {{ field }}
+					    	    {% for error in field.errors %}
+					    	      <span class="pure-form-message-inline">{{ error }}</span>
+					    	    {% endfor %}
+					    	    
+					    	</div>
+				    	{% endfor %}
 				        <div class="pure-controls">
-				            <label for="cb" class="pure-checkbox">
-				                <input id="cb" type="checkbox"> I've read the terms and conditions
-				            </label>
-
 				            <button type="submit" class="pure-button pure-button-primary">Submit</button>
 				        </div>
 				    </fieldset>
@@ -70,19 +55,26 @@
 	                        <img width="48" height="48" alt="Tilo Mitra&#x27;s avatar" class="post-avatar" src="img/common/tilo-avatar.png">
 
 	                        <h2 class="post-title">
-	                        	<a href="{% url 'homepage:url-detailartikel' artikel.judul_artikel|slugify %}">
+	                        	<a href="{% url 'homepage:url-detailartikel' tahun=artikel.created_at|date:'Y' bulan=artikel.created_at|date:'m'  artikelslug=artikel.judul_artikel|slugify %}">
 	                        		{{artikel.judul_artikel}}
 	                        	</a>
 	                    	</h2>
 
 	                        <p class="post-meta">
-	                            Oleh <a href="#" class="post-author">{{artikel.penulis}}</a> Dengan <a class="post-category post-category-design" href="#">{{artikel.kategori_artikel}}</a>
+	                            Oleh <a href="#" class="post-author">{{artikel.penulis}}</a> Dengan 
+                            	{% for kategori_artikel in artikel.kategori_artikel.all %}
+                            	<a class="post-category post-category-design" href="#">
+                            		{{ kategori_artikel }}
+                            	</a>
+                            	{% endfor %}
+	                            	
+	                        	
 	                        </p>
 	                    </header>
 
 	                    <div class="post-description">
 	                        <p>
-	                        	{{ artikel.isi_artikel}}
+	                        	{{ artikel.isi_artikel|safe}}
 	                        </p>
 	                    </div>
 	                </section>

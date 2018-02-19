@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, View
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 # from django.views.generic.edit import FormView
 from .forms import FormLogin, FormCreatePost
@@ -9,11 +9,12 @@ from django.utils.decorators import method_decorator
 
 from homepage.models import Artikel, Kategori, Komentar
 from django.db.models import Count
+from django.utils.text import slugify
 
 # Create your views here.
 
 class Index(TemplateView):
-	template_name = 'adminapps/base.html'
+	template_name = 'adminapps/index.html'
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
 		self.context = super(Index, self).get_context_data(**kwargs)
@@ -80,30 +81,45 @@ class ArtikelList(TemplateView):
 
 class TambahPostView(TemplateView):
 	template_name = 'adminapps/adm_dashboard/tambahpost.html'
-
 	# def get_context_data(self, **kwargs):
-	#     context = super(TambahPostView, self).get_context_data(**kwargs)
-	#     context['data_artikel'] = Artikel.objects.all()
+	#     context = super(ArtikelList, self).get_context_data(**kwargs)
+	#     context['data_kategori'] = Kategori.objects.all()
 	#     return context
+
 
 	def dispatch(self, request, *args, **kwargs):
 	    self.context = super(TambahPostView, self).get_context_data(**kwargs)
+	    self.context['data_kategori'] = Kategori.objects.all()
 	    return super(TambahPostView, self).dispatch(request, *args, **kwargs)
+
 	def get(self, request, *args, **kwargs):
 		form = FormCreatePost()
 		self.context['form'] = form
 		# data_artikel = Artikel.objects.all()
 		return super(TambahPostView, self).render_to_response(self.context)
 	def post(self, request, *args, **kwargs):
+		print request.POST
+		list_kategori_input = request.POST.getlist('kategori_input')
+		# print list_kategori_input[1]
+		artikel_baru = Artikel(
+			penulis=request.user, 
+			judul_artikel=request.POST.get('judul_artikel').lower(), 
+			isi_artikel=request.POST.get('isi_artikel')
+			)
+		artikel_baru.save()
+		for x in list_kategori_input:
+			artikel_baru.kategori_artikel.add(x)
+			artikel_baru.save()
+		# for(list_kategori_input):
+		# 	artikel_baru.kategori_artikel.add(x)
+		# 	artikel_baru.save()
+
 		# print request.user
-		form = FormCreatePost(request.POST)
-		if form.is_valid():
-			instance = Artikel(penulis=request.user, judul_artikel=request.POST.get('judul_artikel'), isi_artikel=request.POST.get('isi_artikel'))
-			instance.save()
-			return redirect('/admin-panel/posts/')
-
-
-
+		# form = FormCreatePost(request.POST)
+		# if form.is_valid():
+		# 	instance = Artikel(penulis=request.user, judul_artikel=request.POST.get('judul_artikel'), isi_artikel=request.POST.get('isi_artikel'))
+		# 	instance.save()
+		return redirect('/admin-panel/posts/')
 
 # class DashboardView(BaseAuthenticatedView):
 	# template_name = 'adminapps/adm_dashboard/index.html'
@@ -123,4 +139,15 @@ class TambahPostView(TemplateView):
 	#     })
 
 	#     return super(DashboardView, self).render_to_response(self.context)
+
+class TambahKategori(TemplateView):
+	def post(self, request, *args, **kwargs):
+		input_kategori = request.POST.get('input_kategori')
+		new_kategori = Kategori.objects.create(
+			nama_kategori=input_kategori,
+			slug=slugify(input_kategori),
+		)
+		new_kategori.save()
+		return JsonResponse({'msg': '<tr><td><input type="checkbox" name="kategori_input" value="'+ str(new_kategori.id) +'"/> '+ input_kategori +'</td><tr>'})
+
 

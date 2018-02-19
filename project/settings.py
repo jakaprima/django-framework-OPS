@@ -64,6 +64,8 @@ INSTALLED_APPS = (
     'welcome',
     'homepage',
     'adminapps',
+    'tinymce',
+    'ckeditor',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -141,4 +143,8 @@ STATICFILES_DIRS = (
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+
+
 INTERNAL_IPS = ['127.0.0.1']
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor"

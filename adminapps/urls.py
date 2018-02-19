@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^logout/$', views.LogoutView.as_view(), name="url-adm-logout"),
 	url(r'^posts/$', views.ArtikelList.as_view(), name='url-listpost'),
 	url(r'^tambahpost/$', views.TambahPostView.as_view(), name='url-tambahpost'),
+	url(r'^tambahkategori/', views.TambahKategori.as_view(), name='url-tambahkategori'),
 ]
 
 # url(r'^post/(?P<pk>\d+)$', views.ArtikelDetailView.as_view(), name='post_detail'),
