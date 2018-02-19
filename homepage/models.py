@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.db.models import Count
 from tinymce.models import HTMLField
-from ckeditor.fields import RichTextField
 
 # Create your models here.
 class SettingWeb(models.Model):

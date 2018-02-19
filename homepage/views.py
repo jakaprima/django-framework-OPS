@@ -136,6 +136,14 @@ class Coba(TemplateView):
 	def post(self, request, **kwargs):
 		return redirect('homepage:testing', data1=2018)
 
+def keranjang(request):
+	# print request.session 
+	# apa aja yang bisa kita pakai
+	# print dir(request.session) 
+	# 'session_key', 'set_expiry'
+	# request.session.set_expiry(300) # 5 menit
+	print request.session.session_key
 
+	return HttpResponse('halo')
 
 

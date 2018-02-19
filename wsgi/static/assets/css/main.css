@@ -2099,10 +2099,10 @@ iframe.wysihtml5-sandbox {
 /**
 * Bootstrap-Colorpicker
 */
-.colorpicker-saturation {
+/*.colorpicker-saturation {
   background-image: url(../lib/colorpicker/img/saturation.png) !important;
-}
-.colorpicker-hue {
+}*/
+/*.colorpicker-hue {
   background-image: url(../lib/colorpicker/img/hue.png) !important;
 }
 .colorpicker-alpha {
@@ -2110,7 +2110,7 @@ iframe.wysihtml5-sandbox {
 }
 .colorpicker-color {
   background-image: url(../lib/colorpicker/img/alpha.png) !important;
-}
+}*/
 /**
 * Uniform
 */
