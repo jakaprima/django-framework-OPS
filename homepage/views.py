@@ -24,10 +24,11 @@ def test():
 
 class Index(TemplateView):
 	template_name = 'homepage/index.html'
-	def get_context_data(self, **kwargs):
+	def get(self, request, *args, **kwargs):
 	    context = super(Index, self).get_context_data(**kwargs)
 	    queryset = SettingWeb.objects.first()
 	    queryset_artikel = Artikel.objects.all().order_by('-created_at')
+	    # print request.session.get('nama_depan')
 	    # queryset_kategori = Artikel.kategori_set.all()
 	    # queryset = Artikel.objects.select_related().annotate(komentar_count=Count('komentar'))
 	    # queryset_kategori = Kategori.Artikel_set.all()
@@ -37,7 +38,7 @@ class Index(TemplateView):
 	    context['data_setting_web'] = queryset
 	    context['data_artikel'] = queryset_artikel
 	    context['daftar_form'] = DaftarForm
-	    return context
+	    return super(Index, self).render_to_response(context)
 
 	def post(self, request, *args, **kwargs):
 		form = DaftarForm(request.POST)
@@ -142,7 +143,8 @@ def keranjang(request):
 	# print dir(request.session) 
 	# 'session_key', 'set_expiry'
 	# request.session.set_expiry(300) # 5 menit
-	print request.session.session_key
+	# print request.session.session_key
+	request.session['nama_depan'] = 'jaka session'
 
 	return HttpResponse('halo')
 
