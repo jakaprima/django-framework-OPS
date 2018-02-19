@@ -26,13 +26,6 @@ class Index(TemplateView):
 	    context = super(Index, self).get_context_data(**kwargs)
 	    queryset = SettingWeb.objects.first()
 	    queryset_artikel = Artikel.objects.all().order_by('-created_at')
-	    # print request.session.get('nama_depan')
-	    # queryset_kategori = Artikel.kategori_set.all()
-	    # queryset = Artikel.objects.select_related().annotate(komentar_count=Count('komentar'))
-	    # queryset_kategori = Kategori.Artikel_set.all()
-
-	    # print queryset_artikel[1].kategori_artikel.all()
-
 	    context['data_setting_web'] = queryset
 	    context['data_artikel'] = queryset_artikel
 	    context['daftar_form'] = DaftarForm

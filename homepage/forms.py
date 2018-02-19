@@ -9,7 +9,7 @@ class KomentarForm(forms.ModelForm):
     class Meta:
         model = Komentar
         fields = ('isi_komentar',)
-    def label_from_instance(self, obj):
+    # def label_from_instance(self, obj):
     	# print obj
         # return "My Object #%i" % obj.id
     # def __init__(self, *args, **kwargs):
