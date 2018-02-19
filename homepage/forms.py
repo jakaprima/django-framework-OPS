@@ -10,7 +10,7 @@ class KomentarForm(forms.ModelForm):
         model = Komentar
         fields = ('isi_komentar',)
     def label_from_instance(self, obj):
-    	print obj
+    	# print obj
         # return "My Object #%i" % obj.id
     # def __init__(self, *args, **kwargs):
     # 	user = kwargs.pop('user','')
