@@ -64,8 +64,7 @@ INSTALLED_APPS = (
     'welcome',
     'homepage',
     'adminapps',
-    'tinymce',
-    'ckeditor',
+    'tinymce'
 )
 
 MIDDLEWARE_CLASSES = (
