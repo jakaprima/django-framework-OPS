@@ -267,7 +267,7 @@ class TentangKami(CreateView):
 
 	def form_valid(self, form):
 		self.object = form.save()
-		print form.cleaned_data
+		# print form.cleaned_data
 		return super(TentangKami, self).form_valid(form)
 		# return form.cleaned_data
 
