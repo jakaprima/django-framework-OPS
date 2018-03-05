@@ -9,6 +9,9 @@ urlpatterns = [
 	url(r'^posts/$', views.ArtikelList.as_view(), name='url-listpost'),
 	url(r'^tambahpost/$', views.TambahPostView.as_view(), name='url-tambahpost'),
 	url(r'^tambahkategori/', views.TambahKategori.as_view(), name='url-tambahkategori'),
+	url(r'^edit-artikel/(?P<pk>\d+)/$', views.EditArtikel.as_view(), name="edit-artikel"),
+	url(r'^edit-artikel/(?P<pk>\d+)/$', views.EditArtikel.as_view(), name="edit-artikel"),
+	url(r'^delete-artikel/(?P<pk>\d+)/$', views.DeleteArtikel.as_view(), name="delete-artikel")
 ]
 
 # url(r'^post/(?P<pk>\d+)$', views.ArtikelDetailView.as_view(), name='post_detail'),

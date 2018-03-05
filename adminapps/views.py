@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic import TemplateView, View
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import TemplateView,  View, UpdateView, DeleteView
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 # from django.views.generic.edit import FormView
@@ -10,6 +11,7 @@ from django.utils.decorators import method_decorator
 from homepage.models import Artikel, Kategori, Komentar
 from django.db.models import Count
 from django.utils.text import slugify
+from django.utils import timezone
 
 # Create your views here.
 
@@ -121,25 +123,6 @@ class TambahPostView(TemplateView):
 		# 	instance.save()
 		return redirect('/admin-panel/posts/')
 
-# class DashboardView(BaseAuthenticatedView):
-	# template_name = 'adminapps/adm_dashboard/index.html'
-	# context = {
-	# 	'title': 'halo title'
-	# }
-
-	# def post(self, request, *args, **kwargs):
-	#     return HttpResponse(status=404)
-
-	# def get(self, request, *args, **kwargs):
-	#     # page content
-	#     title = "Data Statistics"
-	#     message = request.session.get("message", None)
-	#     self.context.update({
-	#     	'': title
-	#     })
-
-	#     return super(DashboardView, self).render_to_response(self.context)
-
 class TambahKategori(TemplateView):
 	def post(self, request, *args, **kwargs):
 		input_kategori = request.POST.get('input_kategori')
@@ -149,5 +132,37 @@ class TambahKategori(TemplateView):
 		)
 		new_kategori.save()
 		return JsonResponse({'msg': '<tr><td><input type="checkbox" name="kategori_input" value="'+ str(new_kategori.id) +'"/> '+ input_kategori +'</td><tr>'})
+
+class EditArtikel(UpdateView):
+	model = Artikel
+	fields = ['judul_artikel', 'isi_artikel']
+	template_name = 'adminapps/artikel_update_form.html'
+	# template_name_suffix = '_halo_form' #artikel_update_form
+	def form_valid(self, form):
+		artikel = form.save(commit=False)
+		artikel.updated_at = timezone.now()
+		artikel.save()
+		list_kategori_input = self.request.POST.getlist('kategori_input')
+		kategori_artikel_id = list(artikel.kategori_artikel.values_list('id', flat=True))
+
+		for id in kategori_artikel_id:
+			artikel.kategori_artikel.remove(id)
+			artikel.save()
+
+		for id in list_kategori_input:
+			artikel.kategori_artikel.add(id)
+			artikel.save()
+		return redirect('admin-panel:url-listpost')
+
+	def get_context_data(self, **kwargs):
+	    context = super(EditArtikel, self).get_context_data(**kwargs)
+	    context['data_kategori'] = Kategori.objects.all()
+	    return context
+
+class DeleteArtikel(DeleteView):
+	template_name = 'adminapps/artikel_confirm_delete.html'
+	model = Artikel
+	success_url = reverse_lazy('admin-panel:url-listpost')
+
 
 

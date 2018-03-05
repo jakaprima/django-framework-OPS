@@ -6,6 +6,8 @@ from django.utils.text import slugify
 from django.db.models import Count
 from tinymce.models import HTMLField
 
+from django.core.urlresolvers import reverse
+
 # Create your models here.
 class SettingWeb(models.Model):
 	nama_web = models.CharField(max_length=35)
@@ -80,16 +82,20 @@ class Komentar(models.Model):
 # 	def __str__(self):
 # 		return str(self.komentar_id) + str(self.artikel_id)
 
-
-
-
-
 class Penulis(models.Model):
 	nama = models.CharField(max_length=200)
 	email = models.EmailField()
 
 	def __str__(self):
 		return self.nama
+
+class Kontak(models.Model):
+	nama_lengkap = models.CharField(max_length=255)
+	email = models.EmailField()
+	isi_pesan = models.CharField(max_length=255)
+
+	def get_absolute_url(self):
+		return reverse('homepage:tentang-kami')
 
 
 

@@ -1,0 +1,90 @@
+{% block footer  %}
+	{% load staticfiles %}
+	<footer>
+		<div class="pure-g" style="background:blue">
+			2018 PrimaSaja Company
+		</div>
+	</footer>
+
+	{# <footer class="Footer bg-dark dker">
+	    <p>2017 Admin Django</p>
+	</footer> #}
+	<!-- /.modal -->
+	<!-- /#helpModal -->
+	<!--jQuery -->
+	<script src="{% static 'assets/lib/jquery/jquery.js' %}"></script>
+
+
+	<!--Bootstrap -->
+	<script src="{% static 'assets/lib/bootstrap/js/bootstrap.js' %}"></script>
+	<!-- MetisMenu -->
+	<script src="{% static 'assets/lib/metismenu/metisMenu.js' %}"></script>
+	<!-- onoffcanvas -->
+	<script src="{% static 'assets/lib/onoffcanvas/onoffcanvas.js' %}"></script>
+	<!-- Screenfull -->
+	<script src="{% static 'assets/lib/screenfull/screenfull.js' %}"></script>
+
+
+	<!-- Metis core scripts -->
+	<script src="{% static 'assets/js/core.js' %}"></script>
+	<!-- Metis demo scripts -->
+	<script src="{% static 'assets/js/app.js' %}"></script>
+
+
+	<script src="{% static 'assets/js/style-switcher.js' %}"></script>
+
+	<script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script>
+	  tinymce.init({
+	    selector: 'textarea',
+	    plugins: "image",
+	    menubar: "insert",
+	    toolbar: "image",
+	    image_list: [
+	      {title: 'My image 1', value: 'https://www.tinymce.com/my1.gif'},
+	      {title: 'My image 2', value: 'http://www.moxiecode.com/my2.gif'}
+	    ],
+	    height: 200,
+	    content_style: "div {margin: 10px; border: 5px solid red; padding: 3px}",
+	    theme: 'modern',
+	    toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | link | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | removeformat',
+	    image_advtab: true,
+	    templates: [
+	      { title: 'Test template 1', content: 'Test 1' },
+	      { title: 'Test template 2', content: 'Test 2' }
+	    ],
+	    content_css: [
+	      '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+	      '//www.tinymce.com/css/codepen.min.css'
+	    ]
+	  });
+	</script>
+	{# buat di tambah post #}
+	<script>
+	  $('.addnewcategory').on('click', function(){
+	    $('.subformkategori').toggle();
+	  });
+	</script>
+	<script>
+
+	$('.btn_tambah_kategori').click(function(){
+		console.log('isi', $('input[name=abcd]').val());
+	var csrftoken = Cookies.get('csrftoken');
+	  $.ajax({
+	  	url: '{%url "admin-panel:url-tambahkategori" %}',
+	    type: "POST",
+	    data: {
+	    	input_kategori: $('.input_tambah_kategori').val(),
+	    	csrfmiddlewaretoken: csrftoken,
+	    }
+	  }).done(function(msg){
+		$('.checkbox-group').prepend(msg.msg);
+		});
+	});
+	</script>
+	{# buat di tambah post #}
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+
+	<script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
+{% endblock %}

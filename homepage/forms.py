@@ -3,7 +3,56 @@ from django.forms import ModelChoiceField
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Komentar
+from .models import Komentar, Kontak
+
+# class KontakForm(forms.Form):
+# 	nama_lengkap = forms.CharField(
+# 		widget = forms.TextInput(
+# 			attrs = {
+# 				"class": "form-control",
+# 				"placeholder": "Masukkan Nama Lengkap"
+# 			}
+# 		)
+# 	)
+
+# 	email = forms.EmailField(
+# 		widget = forms.EmailInput(
+# 			attrs = {
+# 				"class": "form-control",
+# 				"placeholder": "Masukkan Email Anda"
+# 			}
+# 		)
+# 	)
+
+# 	isi_pesan = forms.CharField(
+# 		widget = forms.TextInput(
+# 			attrs = {
+# 				"class": "form-control",
+# 				"placeholder": "Isi Pesan"
+# 			}
+# 		)
+# 	)
+
+# 	def clean_nama_lengkap(self):
+# 		nama_lengkap = self.cleaned_data.get('nama_lengkap')
+# 		if not "jaka" in nama_lengkap:
+# 			raise forms.ValidationError("namanya harus pake kata jaka")
+# 		return nama_lengkap
+
+class KontakForm(forms.ModelForm):
+	class Meta:
+		model = Kontak
+		fields = ('nama_lengkap', 'email', 'isi_pesan')
+
+	def clean_nama_lengkap(self):
+		nama_lengkap = self.cleaned_data.get('nama_lengkap')
+		if not "jaka" in nama_lengkap:
+			raise forms.ValidationError('nama harus diisi')
+		return nama_lengkap
+
+
+
+
 
 class KomentarForm(forms.ModelForm):
     class Meta:
@@ -34,6 +83,12 @@ class DaftarForm(UserCreationForm):
 	class Meta:
 		model = User
 		fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2')
+
+	# def clean_username(self):
+	# 	username = self.cleaned_data.get('username')
+	# 	if not "jaka" in username:
+	# 		raise forms.ValidationError('harus jaka')
+	# 	return username
 
 
 

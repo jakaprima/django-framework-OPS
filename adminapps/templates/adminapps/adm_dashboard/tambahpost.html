@@ -1,0 +1,91 @@
+{% extends 'adminapps/base.html' %}
+{% block konten %}
+	<h1>Tambah Post Baru</h1>
+
+	<form method="POST" action="{% url 'admin-panel:url-tambahpost' %}" class="pure-form pure-g">
+    <div class="pure-u-2-3" style="margin-right: 20px;padding-bottom:250px;">
+      <p>Permalink: http://localhost/wordpress1/index.php/2018/02/13/judul/ ‎Edit</p>
+      {% for field in form %}
+        {{ field }}
+      {%  endfor %}
+      {% csrf_token %}
+    </div>
+    <div class="pure-u-1-4" style="height:230px;">
+      <table class="pure-table">
+          <thead>
+              <tr>
+                  <th colspan="2">publish</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td><button type="" class="button-secondary pure-button">save draft</button></td>
+                  <td><button type="" class="button-success pure-button">preview</button></td>
+              </tr>
+
+              <tr>
+                  <td colspan="2">Status: Draft Edit</td>
+              </tr>
+
+              <tr>
+                  <td colspan="2">Visibility: Public Edit</td>
+              </tr>
+              <tr>
+                  <td colspan="2"> Publish immediately Edit</td>
+              </tr>
+              <tr>
+                  <td colspan="2" align="right"><button type="submit" class="pure-button pure-input-1-5 pure-button-primary">publish</button></td>
+              </tr>
+          </tbody>
+      </table>
+      <table style="margin-top: 20px;" class="pure-table">
+          <thead>
+              <tr>
+                  <th colspan="2">Kategori</th>
+              </tr>
+          </thead>
+          <tbody class="checkbox-group">
+              <tr>
+                {% for kategori in data_kategori %}
+                <tr>
+                  <td>
+                    <input type="checkbox" name="kategori_input" value="{{kategori.id}}" /> {{ kategori.nama_kategori }}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tr>
+              <tr>
+                  <td class="addnewcategory" colspan="2">+ Tambah Kategori Baru</td>
+              </tr>
+              <tr>
+                <td style="display:none" class="subformkategori" colspan="2">
+                  <input type="text"  class='input_tambah_kategori'/>
+                  <p class="btn_tambah_kategori">Tambah aja</p>
+                </td>
+              </tr>
+          </tbody>
+      </table>
+      <table style="margin-top: 20px;" class="pure-table">
+          <thead>
+              <tr>
+                  <th colspan="2">Tags</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>
+                    <input type="text" name="tags" />
+                  </td>
+                  <td>
+                    <div class="button-success pure-button">Tambah</div>
+                  </td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+	</form>
+
+{% endblock %}
+{% block footer %}
+  {% include 'adminapps/parts/footer.html' %}
+{% endblock %}
