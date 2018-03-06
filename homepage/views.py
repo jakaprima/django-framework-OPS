@@ -61,10 +61,6 @@ def kirim_email_aktivasi(data_email):
 
 
 
-
-
-
-
 # class Index(TemplateView):
 # 	template_name = 'homepage/index.html'
 # 	def get_context_data(self, *args, **kwargs):
@@ -267,7 +263,7 @@ class TentangKami(CreateView):
 
 	def form_valid(self, form):
 		self.object = form.save()
-		# print form.cleaned_data
+		print form.cleaned_data
 		return super(TentangKami, self).form_valid(form)
 		# return form.cleaned_data
 
