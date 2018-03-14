@@ -16,10 +16,9 @@ import os
 import socket
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-print(BASE_DIR)
-DIRNAME = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) #project2
-TEMPLATE_DIR = os.path.join(DIRNAME, "templates")
-STATIC_DIR = os.path.join(DIRNAME, "static")
+#project2
+TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
+STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 
 # Quick-start development settings - unsuitable for production
@@ -61,10 +60,27 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'debug_toolbar',
-    'welcome',
-    'homepage',
+    'account',
     'adminapps',
-    'tinymce'
+    'akun',
+    'alamat',
+    'artikel',
+    'blog',
+    'core',
+    'jualbeliapp',
+    'kategori',
+    'kebutuhan',
+    'keranjang',
+    'komentar',
+    'marketing',
+    'order',
+    'pembayaran',
+    'pencarian',
+    'product',
+    'settingweb',
+    'tags',
+    'homepage',
+    'flavors'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,7 +92,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = 'project.urls'
@@ -141,9 +156,9 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static','media')
 
 
 
 INTERNAL_IPS = ['127.0.0.1']
-
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor"

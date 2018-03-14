@@ -1,0 +1,125 @@
+#header{
+	background: red;
+}
+.header-2{
+	background: #0f9bff;
+}
+
+.header-2-ul{
+	display: inline-block;
+	margin: 0;
+}
+
+.header-2-ul li{
+	display: inline-block;
+}
+
+.header-2-1 {
+    display: inline-block;
+    background:pink;
+}
+
+.header-2-2 {
+    background: yellow;
+}
+
+.logo {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background: blue;
+    display: inline-table;
+    padding: 34px;
+}
+
+.judul-web {
+    font-size: 19px;
+    background: green;
+    display: inline-table;
+    padding-bottom: 10px;
+    width: 197px;
+    padding-top: 23px;
+}
+
+.judul-web-1{
+    font-size: 28px;
+}
+/*.judul-web-2{
+
+}*/
+
+.menu-samping-1{
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background: blue;
+	overflow-x: hidden;
+	transition: 0.5s;
+	padding-top: 60px;
+}
+
+.menu-samping-1 a{
+	padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.slider{
+    background: green;
+    height: auto
+}
+
+.layanan{
+    background: pink;
+    height: 300px
+}
+
+.info-pengguna-layanan{
+    background: brown;
+    height: 300px
+}
+
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.modal-background {
+    display: none;
+    position: fixed;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 40;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;   
+}
+
+.modal-dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 20px 0px 20px 0px;
+    transform: translate(0,0);
+    transition: transform .3s ease-out,-webkit-transform .3s ease-out;
+    max-width: 500px;
+    margin: 1.75rem auto;
+    position: relative;
+    width: auto;
+}
+
+.modal-body {
+    position: relative;
+    -webkit-box-flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1rem;
+}

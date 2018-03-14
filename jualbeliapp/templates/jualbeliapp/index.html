@@ -1,0 +1,106 @@
+{% extends 'jualbeliapp/base.html' %}
+{% load staticfiles %}
+{% block style %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/jualbeli/index.css' %}">
+{% endblock %}
+{% block body %}
+<div id="inti">
+<div class="container-produk-populer">
+	<div>
+		<center><h1>Best Selling Products</h1></center>
+	</div>
+	{% for produk in data_produk %}
+		<a href="{% url 'jualbeli:detail' nama_produk_slug=produk.slug %}">
+			<div class="container-per-produk">
+				<div class="produk-wrapper">
+				{% if produk.gambar %}
+					<img class="produk-img" src="{{produk.gambar.url}}" />
+				{% else %}
+					<img src="/media/gambarnone.png" />
+				{% endif %}
+				</div>
+				<div>
+					<center>{{ produk.nama_produk }}</center>
+				</div>
+				<div>
+					<center>{{ produk.harga }}</center>
+				</div>
+			</div>
+		</a>
+	{% endfor %}
+</div>
+<div class="layanan">
+	services
+	
+</div>
+<div class="info-pengguna-layanan">
+	info
+	
+</div>
+<div id="layout" class="pure-g" style='background:yellow;'>
+    <div class="content pure-u-1 pure-u-md-3-4">
+        <div>
+            <!-- A wrapper for all the blog posts -->
+            {% for artikel in data_artikel %}
+            <div class="posts">
+                <h1 class="content-subhead">postingan</h1>
+
+                <!-- A single blog post -->
+                <section class="post">
+                    <header class="post-header">
+                        <img width="48" height="48" alt="Tilo Mitra&#x27;s avatar" class="post-avatar" src="img/common/tilo-avatar.png">
+
+                        <h2 class="post-title">
+                        	<a href="{% url 'blog:url-detailartikel' tahun=artikel.created_at|date:'Y' bulan=artikel.created_at|date:'m'  artikelslug=artikel.judul_artikel|slugify %}">
+                        		{{artikel.judul_artikel}}
+                        	</a>
+                    	</h2>
+
+                        <p class="post-meta">
+                            Oleh <a href="#" class="post-author">{{artikel.penulis}}</a> Dengan 
+                        	{% for kategori_artikel in artikel.kategori_artikel.all %}
+                        	<a class="post-category post-category-design" href="#">
+                        		{{ kategori_artikel }}
+                        	</a>
+                        	{% endfor %}
+                            	
+                        	
+                        </p>
+                    </header>
+
+                    <div class="post-description">
+                        <p>
+                        	{{ artikel.isi_artikel|safe}}
+                        </p>
+                    </div>
+                </section>
+            </div>
+            {% endfor %}
+
+            <div class="footer">
+                <div class="pure-menu pure-menu-horizontal">
+                    <ul>
+                        <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">About</a></li>
+                        <li class="pure-menu-item"><a href="http://twitter.com/yuilibrary/" class="pure-menu-link">Twitter</a></li>
+                        <li class="pure-menu-item"><a href="http://github.com/yahoo/pure/" class="pure-menu-link">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+function bukaNav(){
+    document.getElementById("menu-samping-1").style.width = "250px";
+    document.getElementById("inti").style.marginLeft = "250px"
+}
+
+function tutupNav(){
+    document.getElementById("menu-samping-1").style.width = "0";
+    document.getElementById("inti").style.marginLeft = "0"
+}
+
+</script>
+{% endblock %}

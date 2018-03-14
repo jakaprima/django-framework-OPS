@@ -1,17 +1,22 @@
 from django.conf.urls import url 
 
 from . import views
+
+from artikel.views import ArtikelList, EditArtikel, DeleteArtikel
+from kategori.views import TambahKategori
+
+
 urlpatterns = [
 	url(r'^$', views.Index.as_view(), name='url-adm-dashboard'),
 	# url(r'^logout/$', views.LogoutView.as_view(), name="url-adm-logout"),
 	url(r'^login/$', views.LoginView.as_view(), name="url-adm-login"),
 	url(r'^logout/$', views.LogoutView.as_view(), name="url-adm-logout"),
-	url(r'^posts/$', views.ArtikelList.as_view(), name='url-listpost'),
+	url(r'^posts/$', ArtikelList.as_view(), name='url-listpost'),
 	url(r'^tambahpost/$', views.TambahPostView.as_view(), name='url-tambahpost'),
-	url(r'^tambahkategori/', views.TambahKategori.as_view(), name='url-tambahkategori'),
-	url(r'^edit-artikel/(?P<pk>\d+)/$', views.EditArtikel.as_view(), name="edit-artikel"),
-	url(r'^edit-artikel/(?P<pk>\d+)/$', views.EditArtikel.as_view(), name="edit-artikel"),
-	url(r'^delete-artikel/(?P<pk>\d+)/$', views.DeleteArtikel.as_view(), name="delete-artikel")
+	url(r'^tambahkategori/', TambahKategori.as_view(), name='url-tambahkategori'),
+	url(r'^edit-artikel/(?P<pk>\d+)/$', EditArtikel.as_view(), name="edit-artikel"),
+	url(r'^edit-artikel/(?P<pk>\d+)/$', EditArtikel.as_view(), name="edit-artikel"),
+	url(r'^delete-artikel/(?P<pk>\d+)/$', DeleteArtikel.as_view(), name="delete-artikel")
 ]
 
 # url(r'^post/(?P<pk>\d+)$', views.ArtikelDetailView.as_view(), name='post_detail'),

@@ -8,7 +8,10 @@ from .forms import FormLogin, FormCreatePost
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from homepage.models import Artikel, Kategori, Komentar
+from artikel.models import Artikel
+from kategori.models import Kategori
+from komentar.models import Komentar
+
 from django.db.models import Count
 from django.utils.text import slugify
 from django.utils import timezone
@@ -59,27 +62,9 @@ class LoginView(TemplateView):
 class LogoutView(View):
 	def get(self, request, *args, **kwargs):
 		logout(request)
-		return redirect('url-adm-login')
+		return redirect('admin-panel:url-adm-login')
 
-class ArtikelList(TemplateView):
-	template_name = 'adminapps/adm_dashboard/semuapost.html'
-	def get_context_data(self, **kwargs):
-	    context = super(ArtikelList, self).get_context_data(**kwargs)
-	    queryset = Artikel.objects.select_related().annotate(komentar_count=Count('komentar'))
 
-	    # print queryset[0].komentar_count
-	    # print queryset.query
-	    # "homepage_artikel"."id",
-	    # "homepage_artikel"."penulis_id",
-	    # "homepage_artikel"."judul_artikel",
-	    # "homepage_artikel"."kategori_artikel_id",
-	    # "homepage_artikel"."isi_artikel",
-	    # COUNT("homepage_komentar"."id") AS "komentar_count" FROM "homepage_artikel" LEFT OUTER JOIN "homepage_komentar" ON ( "homepage_artikel"."id" = "homepage_komentar"."artikel_id" ) GROUP BY "homepage_artikel"."id", "homepage_artikel"."penulis_id", "homepage_artikel"."judul_artikel", "homepage_artikel"."kategori_artikel_id", "homepage_artikel"."isi_artikel"
-
-	    context = {
-	    	'data_artikel': queryset,
-	    }
-	    return context
 
 class TambahPostView(TemplateView):
 	template_name = 'adminapps/adm_dashboard/tambahpost.html'
@@ -100,13 +85,13 @@ class TambahPostView(TemplateView):
 		# data_artikel = Artikel.objects.all()
 		return super(TambahPostView, self).render_to_response(self.context)
 	def post(self, request, *args, **kwargs):
-		# print request.POST
 		list_kategori_input = request.POST.getlist('kategori_input')
 		# print list_kategori_input[1]
 		artikel_baru = Artikel(
 			penulis=request.user, 
 			judul_artikel=request.POST.get('judul_artikel').lower(), 
-			isi_artikel=request.POST.get('isi_artikel')
+			isi_artikel=request.POST.get('isi_artikel'),
+			publish_status=request.POST.get('status_artikel')
 			)
 		artikel_baru.save()
 		for x in list_kategori_input:
@@ -123,46 +108,6 @@ class TambahPostView(TemplateView):
 		# 	instance.save()
 		return redirect('/admin-panel/posts/')
 
-class TambahKategori(TemplateView):
-	def post(self, request, *args, **kwargs):
-		input_kategori = request.POST.get('input_kategori')
-		new_kategori = Kategori.objects.create(
-			nama_kategori=input_kategori,
-			slug=slugify(input_kategori),
-		)
-		new_kategori.save()
-		return JsonResponse({'msg': '<tr><td><input type="checkbox" name="kategori_input" value="'+ str(new_kategori.id) +'"/> '+ input_kategori +'</td><tr>'})
-
-class EditArtikel(UpdateView):
-	model = Artikel
-	fields = ['judul_artikel', 'isi_artikel']
-	template_name = 'adminapps/artikel_update_form.html'
-	# template_name_suffix = '_halo_form' #artikel_update_form
-	def form_valid(self, form):
-		artikel = form.save(commit=False)
-		artikel.updated_at = timezone.now()
-		artikel.save()
-		list_kategori_input = self.request.POST.getlist('kategori_input')
-		kategori_artikel_id = list(artikel.kategori_artikel.values_list('id', flat=True))
-
-		for id in kategori_artikel_id:
-			artikel.kategori_artikel.remove(id)
-			artikel.save()
-
-		for id in list_kategori_input:
-			artikel.kategori_artikel.add(id)
-			artikel.save()
-		return redirect('admin-panel:url-listpost')
-
-	def get_context_data(self, **kwargs):
-	    context = super(EditArtikel, self).get_context_data(**kwargs)
-	    context['data_kategori'] = Kategori.objects.all()
-	    return context
-
-class DeleteArtikel(DeleteView):
-	template_name = 'adminapps/artikel_confirm_delete.html'
-	model = Artikel
-	success_url = reverse_lazy('admin-panel:url-listpost')
 
 
 
