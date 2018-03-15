@@ -10,21 +10,17 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 import socket
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-#project2
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 
 ON_PAAS = 'OPENSHIFT_REPO_DIR' in os.environ 
 
@@ -37,8 +33,7 @@ else:
                            '9e4@&tw46$l31)zrqe3wi+-slqm(ruvz&se0^%9#6(_w3ui!c0'
                            )
 
-
-
+# SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = not ON_PAAS
@@ -59,7 +54,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
     'account',
     'adminapps',
     'akun',
@@ -80,7 +74,7 @@ INSTALLED_APPS = (
     'settingweb',
     'tags',
     'homepage',
-    'flavors'
+    'flavors',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -157,6 +151,7 @@ STATICFILES_DIRS = (
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static','media')
 

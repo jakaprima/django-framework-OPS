@@ -60,6 +60,12 @@
 					<li><a href="{% url 'jualbeli:index' %}">Shop</a></li>
 				</ul>
 			</div>
+			<div>
+				<form action="{% url 'pencarian:index' %}" method="GET" accept-charset="utf-8">
+					<input placeholder="cari produk" name='q' value='{{request.GET.q}}' />
+					<button type="submit">Cari</button>
+				</form>
+			</div>
 		</div>
 	</header>
 	{% block body %}
