@@ -75,6 +75,7 @@ INSTALLED_APPS = (
     'tags',
     'homepage',
     'flavors',
+    'welcome',
 )
 
 MIDDLEWARE_CLASSES = (

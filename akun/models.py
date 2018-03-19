@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
+from core.models import TimeStampedModel
+
 # Create your models here.
 
 class Penulis(models.Model):
@@ -16,3 +19,19 @@ class Kontak(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('blog:tentang-kami')
+
+
+
+class User(AbstractBaseUser):
+	email = models.EmailField(max_length=255, unique=True)
+	nama_lengkap = models.CharField(max_length=255, blank=True, null=True)
+	is_active = models.BooleanField(default=True) #bisa login
+	staff = models.BooleanField(default=False) #staff bukan superuser
+	admin = models.BooleanField(default=False)
+
+	USERNAME_FIELD = 'email'
+	REQUIRED_FIELDS = []
+
+
+	def __str__(self):
+		return self.email
