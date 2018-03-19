@@ -6,6 +6,7 @@ from django.contrib import admin
 from homepage.urls import homepage_patterns
 from blog.urls import blog_patterns
 from blog.views import Detail
+from welcome.views import health
 
 
 
@@ -20,6 +21,7 @@ urlpatterns = [
     url(r'^admin-panel/', include('adminapps.urls', namespace="admin-panel", app_name='admin-panel')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),
+    url(r'^health$', health),
 ]
 
 if settings.DEBUG:
