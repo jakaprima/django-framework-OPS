@@ -276,7 +276,6 @@ class AktivasiEmail(TimeStampedModel):
 
 	# tereksekusi saat pre_save
 	def kirim_email_aktivasi(self):
-		# print 'kirim email'
 	    if not self.activated and not self.forced_expired:
 	        if self.key:
 	            base_url = getattr(settings, 'BASE_URL', '127.0.0.1:8000')
@@ -286,7 +285,6 @@ class AktivasiEmail(TimeStampedModel):
 	                'path': path,
 	                'email': self.email
 	            }
-	            print 'context dia adalah', context
 	            txt_ = get_template("registration/emails/verify.txt").render(context)
 	            html_ = get_template("registration/emails/verify.html").render(context)
 	            subject = '1-Click Email Verification'
@@ -306,8 +304,6 @@ class AktivasiEmail(TimeStampedModel):
 
 # terkirim pada awal model save() method.
 def pre_save_aktivasi_email(sender, instance, *args, **kwargs):
-	print 'pre_save'
-	print 'instance', instance
 
 	if not instance.activated and not instance.forced_expired:
 		if not instance.key:
@@ -317,9 +313,6 @@ pre_save.connect(pre_save_aktivasi_email, sender=AktivasiEmail)
 
 # seperti pre_save, tetapi terkirim pada akhir save() method.
 def post_save_membuat_aktivasi(sender, instance, created, *args, **kwargs):
-	print 'post_save'
-	print 'instance', instance
-	print 'created', created
 	if created:
 		obj = AktivasiEmail.objects.create(user=instance, email=instance.email)
 		obj.kirim_email_aktivasi()
