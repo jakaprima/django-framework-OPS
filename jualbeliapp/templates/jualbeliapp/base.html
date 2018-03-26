@@ -59,6 +59,34 @@
 					<li><a href="{% url 'blog:index' %}">Blog</a></li>
 					<li><a href="{% url 'jualbeli:index' %}">Shop</a></li>
 				</ul>
+				<div>
+					Halo, 
+					{% if data_user == 'Tamu' %}
+						Tamu,
+						<div>
+							<a href="{% url 'akun:login' %}">
+							Masuk
+							</a>
+						</div>
+						<div>
+							<a href="{% url 'akun:daftar' %}">Daftar
+							</a>
+						</div>
+
+					{% else %}
+						{{data_user}}
+						<div>
+							<a href="{% url 'akun:logout' %}">
+							Logout
+							</a>
+						</div>
+
+					{% endif %}
+				</div>
+				<div>
+					<a href="{% url 'jualbeli:keranjang:index' %}">keranjang anda</a>
+					
+				</div>
 			</div>
 			<div>
 				<form action="{% url 'pencarian:index' %}" method="GET" accept-charset="utf-8">

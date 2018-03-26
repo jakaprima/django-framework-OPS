@@ -10,29 +10,28 @@
 		<center><h1>Best Selling Products</h1></center>
 	</div>
 	{% for produk in data_produk %}
-			<div class="container-per-produk">
-                <a href="{% url 'jualbeli:detail' nama_produk_slug=produk.slug %}">
-				<div class="produk-wrapper">
-				{% if produk.gambar %}
-					<img class="produk-img" src="{{produk.gambar.url}}" />
-				{% else %}
-					<img src="/media/gambarnone.png" />
-				{% endif %}
-				</div>
-				<div>
-					<center>{{ produk.nama_produk }}</center>
-				</div>
-				<div>
-					<center>{{ produk.harga }}</center>
-				</div>
-                </a>
-                <div>
-                    <center>
-                        <button>Masukkan Keranjang</button>
-                    </center>
-                </div>
-			</div>
-		
+    	<div class="container-per-produk">
+            <a href="{% url 'jualbeli:detail' nama_produk_slug=produk.slug %}">
+    		<div class="produk-wrapper">
+    		{% if produk.gambar %}
+    			<img class="produk-img" src="{{produk.gambar.url}}" />
+    		{% else %}
+    			<img src="/media/gambarnone.png" />
+    		{% endif %}
+    		</div>
+    		<div>
+    			<center>{{ produk.nama_produk }}</center>
+    		</div>
+    		<div>
+    			<center>{{ produk.harga }}</center>
+    		</div>
+            </a>
+            <div>
+                <center>
+                    <button>Masukkan Keranjang</button>
+                </center>
+            </div>
+    	</div>		
 	{% endfor %}
 </div>
 <div class="layanan">

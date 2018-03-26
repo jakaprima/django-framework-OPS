@@ -1,0 +1,12 @@
+login
+{% if messages %}
+	{% for pesan in messages %}
+		{{ pesan }}
+	{% endfor %}
+{% endif %}
+<form action="" method="POST">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<button type="submit">Login</button>
+
+</form>

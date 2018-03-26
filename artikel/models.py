@@ -2,12 +2,18 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.contrib.auth.models import User
+
+# karena pake custom ini ga dipake
+# from django.contrib.auth.models import User
+
+
 from kategori.models import Kategori
 from tags.models import Tag
 
 from tinymce.models import HTMLField
 from core.models import TimeStampedModel
+
+from django.conf import settings
 
 # Create your models here.
 class ArtikelManager(models.Manager):
@@ -16,7 +22,7 @@ class ArtikelManager(models.Manager):
 
 
 class Artikel(TimeStampedModel):
-	penulis = models.ForeignKey(User, null=True, blank=True)
+	penulis = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True)
 	judul_artikel = models.CharField(max_length=200)
 	kategori_artikel = models.ManyToManyField(Kategori, null=True, blank=True, related_name='kategori_related') #biar bisa di pake di template
 	# komentar_artikel = models.ManyToManyField('Komentar', blank=True, null=True, through='Postlist')

@@ -14,6 +14,7 @@ class FormLogin(forms.Form):
 			'autocomplete' : 'off'
 		})
 
+
 class FormCreatePost(forms.Form):
 	judul_artikel = forms.CharField()
 	isi_artikel = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))

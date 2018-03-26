@@ -1,0 +1,15 @@
+Halo,
+
+Silahkan aktivasi akun anda yang ber email {{ email }} dengan klik dibawah ini:
+
+
+
+{{ path }}
+
+
+
+setelah aktifasi anda dapat login!
+
+Thank you,
+
+primasaja.com || jaka prima maulana

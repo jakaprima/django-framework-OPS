@@ -15,6 +15,7 @@ urlpatterns = [
     # url(r'^$', 'project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^', include(homepage_patterns, namespace="homepage", app_name="homepage")),
+    url(r'^akun/', include('akun.urls', namespace="akun")),
     url(r'^pencarian', include('pencarian.urls', namespace='pencarian', app_name='pencarian')),
     url(r'^blog/', include(blog_patterns, namespace="blog", app_name="blog")),
     url(r'^shop/', include('jualbeliapp.urls', namespace="jualbeli", app_name="jualbeli")),

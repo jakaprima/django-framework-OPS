@@ -21,7 +21,7 @@ from django.utils.text import slugify
 from django.db import connection
 
 from komentar.forms import KomentarForm
-from akun.forms import DaftarForm
+from akun.forms import FormMembuatAkun
 from akun.forms import KontakForm
 
 
@@ -114,7 +114,7 @@ def kirim_email_aktivasi(data_email):
 
 def Index(request):
 	if request.method == 'POST':
-		form = DaftarForm(request.POST)
+		form = FormMembuatAkun(request.POST)
 		if form.is_valid():
 			data_email = {
 				"from": "Blog Jaka Prima <postmaster@sandboxcb7f24d03e004cd2878d280f2cfa5a55.mailgun.org>",
@@ -128,7 +128,7 @@ def Index(request):
 		else:
 			messages.error(request, 'tidak berhasil')
 	else:
-		form = DaftarForm()
+		form = FormMembuatAkun()
 
 	queryset_setting_web = SettingWeb.objects.first()
 	queryset_artikel = Artikel.objects.published().order_by('-created_at')
@@ -285,7 +285,7 @@ class TentangKami(CreateView):
 
 class Daftar(CreateView):
 	template_name = 'blog/index.html'
-	form_class = DaftarForm
+	form_class = FormMembuatAkun
 	model = User
 	def form_valid(self, form):
 		self.object = form.save()

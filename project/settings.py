@@ -78,6 +78,18 @@ INSTALLED_APPS = (
     'welcome',
 )
 
+DEFAULT_FROM_EMAIL = 'gandiandi48@gmail.com'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'gandiandi48@gmail.com'
+EMAIL_HOST_PASSWORD = 'sooumoiaqdskvhla'
+EMAIL_USE_TLS = True
+
+
+
+AUTH_USER_MODEL = 'akun.Akun' #merubah built-in user model dengan buatan sendiri
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
