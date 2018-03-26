@@ -7,3 +7,6 @@ from django.shortcuts import render
 
 def index(request):
 	return render(request, 'keranjang/index.html')
+
+def update(request):
+	print 'id', request.POST.get('produk_id')

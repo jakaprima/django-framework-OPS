@@ -28,7 +28,10 @@
             </a>
             <div>
                 <center>
-                    <button>Masukkan Keranjang</button>
+                    <form action="{% url 'keranjang:update' %}" method="POST" accept-charset="utf-8">
+                        <input type='hidden' name='produk_id' value='{{ produk.id }}' />
+                        <button>Masukkan Keranjang</button>
+                    </form>
                 </center>
             </div>
     	</div>		
