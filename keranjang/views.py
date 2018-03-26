@@ -9,4 +9,5 @@ def index(request):
 	return render(request, 'keranjang/index.html')
 
 def update(request):
-	print 'id', request.POST.get('produk_id')
+	pass
+	# print 'id', request.POST.get('produk_id')
