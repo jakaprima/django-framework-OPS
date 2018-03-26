@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def index(request):
-	print 'request user', request.user
+	# print 'request user', request.user
 	if  request.user.is_anonymous == True:
 		data_user = 'Tamu'
 	else:
@@ -19,7 +19,7 @@ def index(request):
 		'data_user': data_user,
 		'data_produk': Produk.objects.all()
 	}
-	print 'context', context
+	# print 'context', context
 	return render(request, 'jualbeliapp/index.html', context)
 
 def detail(request, nama_produk_slug=None):
